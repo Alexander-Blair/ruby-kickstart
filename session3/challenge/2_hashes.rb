@@ -8,3 +8,17 @@
 # staircase 4  # => {1 => [], 3 => [2]}
 # staircase 5  # => {1 => [], 3 => [2], 5 =>[2, 4]}
 
+def staircase(n)
+  to_return = {}
+  (1..n).each do |i|
+    arr = []
+    if i.odd?
+      (1..i).each { |num| arr << num if num.even? }
+      to_return[i] = arr
+    end
+  end
+  to_return
+end
+
+
+staircase 5
