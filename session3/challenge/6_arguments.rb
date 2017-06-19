@@ -17,3 +17,16 @@
 # match_maker true,  true,  true, true, nil     # => [false, true]
 # match_maker true,  true,  true, 0, nil        # => [false, true]
 
+def match_maker(*args)
+  to_return = []
+  (args.length/2).times do |i|
+    if args.first && ( !!args[i * 2 + 1] == !!args[i * 2 + 2] ) || !args.first && ( !!args[i * 2 + 1] != !!args[i * 2 + 2] )
+      to_return << false
+    else
+      to_return << true
+    end
+  end
+  to_return
+end
+
+#match_maker false, true,  true
