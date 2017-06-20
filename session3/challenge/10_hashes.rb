@@ -25,9 +25,33 @@
 # pathify 'usr' => {'bin' => ['ruby']}, 'opt' => {'local' => {'bin' => ['sqlite3', 'rsync']} } # => ['/usr/bin/ruby', 'opt/local/bin/sqlite3', 'opt/local/bin/rsync']
 # pathify                                                                                      # => []
 #
-#
+#[usr,{bin=>[ruby]}] ; [usr,{bin=>[]},]
 # create it from scratch :)
 
-
-def pathify
+def pathify(paths, *args)
+  count = 0
+  directories = Array.new
+  emen = Array.new
+  final = Array.new
+  ary = recurse(paths, emen, final)
 end
+
+def recurse(path, array, final_array, dir='')
+  count = final_array.length
+  path.each do |key, value|
+    if path.is_a? Hash
+      array[count] = dir + "/" + key
+      recurse(value, array, final_array, array[count])
+    end
+    if path.is_a? Array
+      array[count] ? final_array << ( array[count] + "/" + key ) : final_array << ( dir + "/" + key )
+    end
+  end
+  final_array
+end
+
+
+#pathify 'usr' => {'bin' => ['ruby']}, 'opt' => {'local' => {'bin' => ['sqlite3', 'rsync']} }
+#pathify 'usr' => {'bin' => ['ruby'], 'include' => ['zlib.h'] }
+#pathify 'usr' => {'bin' => ['ruby', 'perl'] }
+#pathify 'usr' => {'bin' => ['ruby'] }

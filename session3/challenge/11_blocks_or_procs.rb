@@ -30,5 +30,6 @@
 # end
 
 
-def array_init
+def array_init(length = 5,&block)
+  block ? return_array = Array.new(length){|ind| block.call(ind) } : return_array = Array.new(length){|ind| (ind * 100).to_s  }
 end
